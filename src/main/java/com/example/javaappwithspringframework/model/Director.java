@@ -14,7 +14,7 @@ public class Director {
     private String lastName;
     private String dateOfBirth;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "directors")
     private Set<Movie> movies = new HashSet<>();
 
 
