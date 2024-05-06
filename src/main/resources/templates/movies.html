@@ -17,13 +17,13 @@
       <th>Language</th>
       <th>Country</th>
     </tr>
-    <tr>
-      <td >123</td>
-      <td>A great pretender</td>
-      <td>Horror</td>
-      <td>1988</td>
-      <td>ENG</td>
-      <td>USA</td>
+    <tr th:each="movie : ${movies}">
+      <td th:text="${movie.id}">123</td>
+      <td th:text="${movie.title}">A great pretender</td>
+      <td th:text="${movie.genre}">Horror</td>
+      <td th:text="${movie.releaseDate}">1988</td>
+      <td th:text="${movie.language}">ENG</td>
+      <td th:text="${movie.country}">USA</td>
     </tr>
   </table>
 
