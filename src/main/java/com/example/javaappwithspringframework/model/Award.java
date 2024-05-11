@@ -10,6 +10,7 @@ public class Award {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @Column(name = "awardYear")
     private String year;
 
     @ManyToMany(mappedBy = "awards")
