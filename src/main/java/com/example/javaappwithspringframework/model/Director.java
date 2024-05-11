@@ -1,10 +1,14 @@
 package com.example.javaappwithspringframework.model;
 
+import lombok.*;
+
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
+@EqualsAndHashCode(of = {"id"})
 @Entity
 public class Director {
     @Id
@@ -16,6 +20,14 @@ public class Director {
 
     @ManyToMany(mappedBy = "directors")
     private Set<Movie> movies = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "director_awards",
+            joinColumns = @JoinColumn(name = "director_id"),
+            inverseJoinColumns = @JoinColumn(name = "award_id")
+    )
+    private Set<Award> awards = new HashSet<>();
 
 
     public Director(String firstName, String lastName, String dateOfBirth) {
@@ -36,6 +48,14 @@ public class Director {
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", movies=" + movies +
                 '}';
+    }
+
+    public Set<Award> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<Award> awards) {
+        this.awards = awards;
     }
 
     public String getFirstName() {
