@@ -17,7 +17,28 @@ public class Movie {
     private String country;
 
     @ManyToMany
+    @JoinTable(
+            name = "movie_directors",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "director_id")
+    )
     private Set<Director> directors = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_actors",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    private Set<Actor> actors = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_awards",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "award_id")
+    )
+    private Set<Award> awards = new HashSet<>();
 
 
     public Movie(String title, String genre, String releaseDate, String language, String country) {
@@ -95,4 +116,20 @@ public class Movie {
     public void setId(Long id) {this.id = id;}
 
     public Long getId() {return id;}
+
+    public Set<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
+    }
+
+    public Set<Award> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<Award> awards) {
+        this.awards = awards;
+    }
 }
