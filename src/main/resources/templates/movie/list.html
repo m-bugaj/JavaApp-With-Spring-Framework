@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<h1>Your Movies</h1>
+
+<table class="table table-hover">
+    <thead class="thead-inverse">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Release Date</th>
+        <th>Language</th>
+        <th>Country</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="movie : ${movies}">
+        <td th:text="${movie.id}">123</td>
+        <td th:text="${movie.title}">A Great Pretender</td>
+        <td th:text="${movie.genre}">Horror</td>
+        <td th:text="${movie.releaseDate}">1988</td>
+        <td th:text="${movie.language}">ENG</td>
+        <td th:text="${movie.country}">USA</td>
+        <td>
+            <a th:href="@{'/movie/' + ${movie.id} + '/show'}">View</a>
+            <a th:href="@{'/movie/' + ${movie.id} + '/edit'}" style="margin-left: 5px;">Edit</a>
+            <a th:href="@{'/movie/' + ${movie.id} + '/delete'}" style="margin-left: 5px; color: red;">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="#" th:href="@{'/movie/new'}" class="btn btn-success">Add New Movie</a>
+
+</body>
+</html>

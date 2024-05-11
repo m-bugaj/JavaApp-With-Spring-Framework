@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Movie Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-3">
+            <form th:object="${movie}" th:action="@{/movie/}" method="post">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="panel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title"><span th:text="*{id} != null ? 'Edit ' : 'New '"></span>Movie Information</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>Title:</label>
+                                <input type="text" class="form-control" th:field="*{title}"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Genre:</label>
+                                <input type="text" class="form-control" th:field="*{genre}"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Release Date:</label>
+                                <input type="text" class="form-control" th:field="*{releaseDate}"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Language:</label>
+                                <input type="text" class="form-control" th:field="*{language}"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Country:</label>
+                                <input type of "text" class="form-control" th:field="*{country}"/>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

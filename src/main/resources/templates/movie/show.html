@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${movie.title}">Movie Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-md-3 col-md-offset-4">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title" th:text="${movie.title}">Movie Title</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2"><b>Title:</b></div>
+                            <div class="col-md-10" th:text="${movie.title}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><b>Release Date:</b></div>
+                            <div class="col-md-10" th:text="${movie.releaseDate}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><b>Genre:</b></div>
+                            <div class="col-md-10" th:text="${movie.genre}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
