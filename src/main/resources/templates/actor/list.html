@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Actors</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<h1>Your Actors</h1>
+
+<table class="table table-hover">
+    <thead class="thead-inverse">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date of Birth</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="actor : ${actors}">
+        <td th:text="${actor.id}">1</td>
+        <td th:text="${actor.firstName}">Brad</td>
+        <td th:text="${actor.lastName}">Pitt</td>
+        <td th:text="${actor.dateOfBirth}">18-12-1963</td>
+        <td>
+            <a th:href="@{'/actor/' + ${actor.id} + '/show'}">View</a>
+            <a th:href="@{'/actor/' + ${actor.id} + '/edit'}" style="margin-left: 5px;">Edit</a>
+            <a th:href="@{'/actor/' + ${actor.id} + '/delete'}" style="margin-left: 5px; color: red;">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="#" th:href="@{'/actor/new'}" class="btn btn-success">Add New Actor</a>
+
+</body>
+</html>
