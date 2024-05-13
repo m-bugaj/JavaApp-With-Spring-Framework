@@ -1,6 +1,8 @@
 package com.example.javaappwithspringframework.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +17,7 @@ public class Movie {
     private String releaseDate;
     private String language;
     private String country;
+    private Long directorId;
 
     @ManyToMany
     @JoinTable(
@@ -63,6 +66,14 @@ public class Movie {
                 ", country='" + country + '\'' +
                 ", directors=" + directors +
                 '}';
+    }
+
+    public Long getDirectorId() {
+        return directorId;
+    }
+
+    public void setDirectorId(Long directorId) {
+        this.directorId = directorId;
     }
 
     public String getTitle() {
