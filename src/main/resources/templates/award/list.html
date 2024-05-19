@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Awards</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<h1>Your Awards</h1>
+
+<table class="table table-hover">
+    <thead class="thead-inverse">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Year</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="award : ${awards}">
+        <td th:text="${award.id}">1</td>
+        <td th:text="${award.name}">Best Director</td>
+        <td th:text="${award.year}">2020</td>
+        <td>
+            <a th:href="@{'/award/' + ${award.id} + '/show'}">View</a>
+            <a th:href="@{'/award/' + ${award.id} + '/edit'}" style="margin-left: 5px;">Edit</a>
+            <a th:href="@{'/award/' + ${award.id} + '/delete'}" style="margin-left: 5px; color: red;">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="#" th:href="@{'/award/new'}" class="btn btn-success">Add New Award</a>
+
+</body>
+</html>
