@@ -37,7 +37,17 @@
                             </div>
                             <div class="form-group">
                                 <label>Country:</label>
-                                <input type of "text" class="form-control" th:field="*{country}"/>
+                                <input type="text" class="form-control" th:field="*{country}"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Director:</label>
+                                <select class="form-control" th:field="*{directorId}">
+                                    <option th:each="director : ${directors}"
+                                            th:value="${director.id}"
+                                            th:text="${director.firstName} + ' ' + ${director.lastName}"
+                                            th:selected="${director.id.equals(movie.directorId)}">The Great Publisher
+                                    </option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
@@ -46,6 +56,7 @@
             </form>
         </div>
     </div>
+<!--    <div>Director ID: <span th:text="${movie.directorId}"></span></div>-->
 </div>
 </body>
 </html>
