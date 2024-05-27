@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Directors</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<h1>Your Directors</h1>
+
+<table class="table table-hover">
+    <thead class="thead-inverse">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date of Birth</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="director : ${directors}">
+        <td th:text="${director.id}">1</td>
+        <td th:text="${director.firstName}">David</td>
+        <td th:text="${director.lastName}">Fincher</td>
+        <td th:text="${director.dateOfBirth}">28-08-1962</td>
+        <td>
+            <a th:href="@{'/director/' + ${director.id} + '/show'}">View</a>
+            <a th:href="@{'/director/' + ${director.id} + '/edit'}" style="margin-left: 5px;">Edit</a>
+            <a th:href="@{'/director/' + ${director.id} + '/delete'}" style="margin-left: 5px; color: red;">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="#" th:href="@{'/director/new'}" class="btn btn-success">Add New Director</a>
+
+</body>
+</html>
