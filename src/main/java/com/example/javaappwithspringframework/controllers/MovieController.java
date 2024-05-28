@@ -2,6 +2,7 @@ package com.example.javaappwithspringframework.controllers;
 
 import com.example.javaappwithspringframework.commands.MovieCommand;
 import com.example.javaappwithspringframework.model.Movie;
+import com.example.javaappwithspringframework.repositories.DirectorRepository;
 import com.example.javaappwithspringframework.repositories.MovieRepository;
 import com.example.javaappwithspringframework.converters.MovieCommandToMovieConverter;
 import com.example.javaappwithspringframework.converters.MovieToMovieCommandConverter;
@@ -16,11 +17,13 @@ public class MovieController {
     private MovieRepository movieRepository;
     private MovieCommandToMovieConverter movieCommandToMovie;
     private MovieToMovieCommandConverter movieToMovieCommand;
+    private DirectorRepository directorRepository;
 
-    public MovieController(MovieRepository movieRepository, MovieCommandToMovieConverter movieCommandToMovie, MovieToMovieCommandConverter movieToMovieCommand) {
+    public MovieController(MovieRepository movieRepository, MovieCommandToMovieConverter movieCommandToMovie, MovieToMovieCommandConverter movieToMovieCommand, DirectorRepository directorRepository) {
         this.movieRepository = movieRepository;
         this.movieCommandToMovie = movieCommandToMovie;
         this.movieToMovieCommand = movieToMovieCommand;
+        this.directorRepository = directorRepository;
     }
 
     @RequestMapping(value = {"/movies", "movie/list"})
@@ -38,6 +41,7 @@ public class MovieController {
     @GetMapping("/movie/new")
     public String newMovie(Model model){
         model.addAttribute("movie", new MovieCommand());
+        model.addAttribute("directors", directorRepository.findAll());
         return "movie/addedit";
     }
 
@@ -47,7 +51,9 @@ public class MovieController {
         if (movieOptional.isPresent()) {
             Movie movie = movieOptional.get();
             MovieCommand movieCommand = movieToMovieCommand.convert(movie);
+            System.out.println("Editing movie with director ID: " + movie.getDirectorId()); // Dodaj to logowanie
             model.addAttribute("movie", movieCommand);
+            model.addAttribute("directors", directorRepository.findAll());
             return "movie/addedit";
         } else {
             System.out.println("Movie not found!");
@@ -76,7 +82,11 @@ public class MovieController {
 
     @PostMapping("/movie/")
     public String saveOrUpdate(@ModelAttribute MovieCommand command) {
-        Optional<Movie> movieById = movieRepository.findById(command.getId());
+        Optional<Movie> movieById = Optional.empty();
+        if (command.getId() != null) {
+            movieById = movieRepository.findById(command.getId());
+        }
+
         Optional<Movie> movieByTitleAndDate = movieRepository.getFirstByTitleAndReleaseDate(command.getTitle(), command.getReleaseDate());
 
         if (movieById.isPresent()) {
@@ -86,6 +96,7 @@ public class MovieController {
             editedMovie.setReleaseDate(command.getReleaseDate());
             editedMovie.setLanguage(command.getLanguage());
             editedMovie.setCountry(command.getCountry());
+            directorRepository.findById(command.getDirectorId()).ifPresent(editedMovie.getDirectors()::add);
             movieRepository.save(editedMovie);
             return "redirect:/movie/" + editedMovie.getId() + "/show";
         } else if (movieByTitleAndDate.isEmpty()) {
